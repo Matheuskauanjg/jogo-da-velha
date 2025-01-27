@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Jogo da Velha</h1>
-    <div>
-        <label for="difficulty">Escolha a dificuldade: </label>
-        <select id="difficulty">
-            <option value="easy">Fácil</option>
-            <option value="medium">Média</option>
-            <option value="hard">Difícil</option>
-        </select>
+    <div id="game-container">
+        <h1>Jogo da Velha</h1>
+        <div id="score">
+            <p>Jogador: <span id="player-score">0</span></p>
+            <p>Máquina: <span id="ai-score">0</span></p>
+        </div>
+        <div id="board" class="board">
+            <!-- As casas do jogo -->
+        </div>
+        <button id="restart-btn">Próxima Partida</button>
     </div>
-    <div id="board"></div>
-    <button id="restartBtn">Reiniciar Jogo</button>
+
     <script src="script.js"></script>
-    <script src="facil.js"></script>
-    <script src="medio.js"></script>
     <script src="dificil.js"></script>
 </body>
 </html>

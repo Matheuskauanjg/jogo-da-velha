@@ -1,106 +1,93 @@
-const boardElement = document.getElementById('board');
-const restartBtn = document.getElementById('restartBtn');
-const difficultySelect = document.getElementById('difficulty');
-
-let board = ['', '', '', '', '', '', '', '', ''];
-let currentPlayer = 'X'; // X é o jogador
+let playerScore = 0;
+let aiScore = 0;
+let board = ['', '', '', '', '', '', '', '', '']; // Estado inicial do tabuleiro
+let currentPlayer = 'X'; // Jogador começa com X
 let gameOver = false;
-let difficulty = 'easy';
 
-difficultySelect.addEventListener('change', () => {
-    difficulty = difficultySelect.value;
-    resetBoard();
-    loadAI(); // Atualiza a IA com a dificuldade selecionada
-});
+const cells = document.querySelectorAll('#board div');
+const playerScoreElem = document.getElementById('player-score');
+const aiScoreElem = document.getElementById('ai-score');
+const restartBtn = document.getElementById('restart-btn');
 
-function createBoard() {
-    boardElement.innerHTML = '';
-    for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.addEventListener('click', () => handleCellClick(i));
-        boardElement.appendChild(cell);
-    }
-}
-
-function handleCellClick(index) {
-    if (gameOver || board[index] !== '' || currentPlayer === 'O') return; // O computador não pode jogar durante a vez do jogador
-
-    board[index] = currentPlayer;
-    renderBoard();
-
-    if (checkWinner()) {
-        setTimeout(() => alert(`${currentPlayer} venceu!`), 100);
-        gameOver = true;
-    } else if (board.every(cell => cell !== '')) {
-        setTimeout(() => alert('Empate!'), 100);
-        gameOver = true;
-    } else {
-        currentPlayer = 'O';
-        setTimeout(() => aiMove(), 500);  // A IA joga após 0.5 segundos
-    }
-}
-
-function renderBoard() {
-    const cells = document.querySelectorAll('.cell');
+// Inicializar o tabuleiro
+function initBoard() {
+    board = ['', '', '', '', '', '', '', '', ''];
+    currentPlayer = 'X';
+    gameOver = false;
     cells.forEach((cell, index) => {
-        cell.textContent = board[index];
+        cell.textContent = '';
+        cell.addEventListener('click', () => makeMove(index), { once: true });
     });
 }
 
-function checkWinner() {
+function makeMove(index) {
+    if (gameOver || board[index] !== '') return;
+
+    // Jogada do jogador
+    board[index] = currentPlayer;
+    cells[index].textContent = currentPlayer;
+
+    if (checkWinner(board)) {
+        setTimeout(() => {
+            playerScore++;
+            updateScore();
+            alert("Você venceu!");
+            gameOver = true;
+        }, 100);
+        return;
+    }
+
+    // Alterna para a vez da IA
+    currentPlayer = 'O';
+    aiMove();
+}
+
+function aiMove() {
+    const aiMoveIndex = hardAI(); // Função que escolhe a jogada da IA (usando minimax)
+    board[aiMoveIndex] = currentPlayer;
+    cells[aiMoveIndex].textContent = currentPlayer;
+
+    if (checkWinner(board)) {
+        setTimeout(() => {
+            aiScore++;
+            updateScore();
+            alert("A IA venceu!");
+            gameOver = true;
+        }, 100);
+        return;
+    }
+
+    currentPlayer = 'X';
+}
+
+// Verifica o vencedor
+function checkWinner(board) {
     const winningCombinations = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Horizontais
         [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Verticais
         [0, 4, 8], [2, 4, 6]              // Diagonais
     ];
 
-    return winningCombinations.some(combination => {
+    for (let combination of winningCombinations) {
         const [a, b, c] = combination;
-        return board[a] && board[a] === board[b] && board[a] === board[c];
-    });
-}
-
-function aiMove() {
-    let bestMove;
-    switch (difficulty) {
-        case 'easy':
-            bestMove = easyAI();
-            break;
-        case 'medium':
-            bestMove = mediumAI();
-            break;
-        case 'hard':
-            bestMove = hardAI();
-            break;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+            return true;
+        }
     }
-    board[bestMove] = 'O';
-    renderBoard();
-
-    if (checkWinner()) {
-        setTimeout(() => alert('O venceu!'), 100);
-        gameOver = true;
-    } else if (board.every(cell => cell !== '')) {
-        setTimeout(() => alert('Empate!'), 100);
-        gameOver = true;
-    } else {
-        currentPlayer = 'X';
-    }
+    return false;
 }
 
-function loadAI() {
-    // Carregar o script de dificuldade
-    const script = document.createElement('script');
-    script.src = `${difficulty}.js`;
-    document.head.appendChild(script);
+// Atualiza o score
+function updateScore() {
+    playerScoreElem.textContent = playerScore;
+    aiScoreElem.textContent = aiScore;
 }
 
-function resetBoard() {
-    board = ['', '', '', '', '', '', '', '', ''];
-    gameOver = false;
-    currentPlayer = 'X';
-    renderBoard();
-}
+// Função para reiniciar para a próxima partida
+restartBtn.addEventListener('click', () => {
+    if (!gameOver) return;
+    initBoard();
+});
 
-createBoard();
-restartBtn.addEventListener('click', resetBoard);
+// Iniciar o jogo
+initBoard();
