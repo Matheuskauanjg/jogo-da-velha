@@ -3,7 +3,7 @@ const restartBtn = document.getElementById('restartBtn');
 const difficultySelect = document.getElementById('difficulty');
 
 let board = ['', '', '', '', '', '', '', '', ''];
-let currentPlayer = 'X';
+let currentPlayer = 'X'; // X é o jogador
 let gameOver = false;
 let difficulty = 'easy';
 
@@ -38,7 +38,7 @@ function handleCellClick(index) {
     } else {
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         if (currentPlayer === 'O') {
-            setTimeout(() => aiMove(), 500);
+            setTimeout(() => aiMove(), 500);  // A IA joga após 0.5 segundos
         }
     }
 }
@@ -91,7 +91,7 @@ function aiMove() {
 }
 
 function loadAI() {
-    // Adiciona os scripts de dificuldade
+    // Carregar o script de dificuldade
     const script = document.createElement('script');
     script.src = `${difficulty}.js`;
     document.head.appendChild(script);
