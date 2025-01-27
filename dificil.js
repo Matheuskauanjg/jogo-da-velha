@@ -1,4 +1,3 @@
-// Função de IA que usa o Minimax
 function hardAI() {
     return minimax(board, 'O', -Infinity, Infinity).index;
 }
