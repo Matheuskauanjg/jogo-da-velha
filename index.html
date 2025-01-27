@@ -7,21 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Jogo da Velha</h1>
-        <div>
-            <label for="difficulty">Escolha a dificuldade:</label>
-            <select id="difficulty">
-                <option value="easy">Fácil</option>
-                <option value="medium">Média</option>
-                <option value="hard">Difícil</option>
-            </select>
-        </div>
-        <div id="board" class="board">
-            <!-- O tabuleiro será gerado aqui -->
-        </div>
-        <button id="restartBtn">Reiniciar</button>
+    <h1>Jogo da Velha</h1>
+    <div>
+        <label for="difficulty">Escolha a dificuldade: </label>
+        <select id="difficulty">
+            <option value="easy">Fácil</option>
+            <option value="medium">Média</option>
+            <option value="hard">Difícil</option>
+        </select>
     </div>
+    <div id="board"></div>
+    <button id="restartBtn">Reiniciar Jogo</button>
     <script src="script.js"></script>
+    <script src="facil.js"></script>
+    <script src="medio.js"></script>
+    <script src="dificil.js"></script>
 </body>
 </html>
