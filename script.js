@@ -59,6 +59,9 @@ function handleCellClick(event) {
     if (!checkWinner()) {
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         statusDiv.textContent = `Jogador ${currentPlayer}, é sua vez!`;
+        if (currentPlayer === 'O') {
+            aiMove(); // IA joga após o jogador
+        }
     }
 }
 
@@ -73,7 +76,7 @@ function aiMove() {
     board[randomIndex] = 'O';
     cells[randomIndex].textContent = 'O';
     checkWinner();
-    currentPlayer = 'X';
+    currentPlayer = 'X'; // Volta para o jogador X
     statusDiv.textContent = 'Jogador X, é sua vez!';
 }
 
@@ -84,7 +87,3 @@ resetButton.addEventListener('click', resetGame);
 cells.forEach(cell => {
     cell.addEventListener('click', handleCellClick);
 });
-
-// Configura o IA para jogar a cada segundo após a jogada do usuário
-setInterval(() => {
-    if (currentPlayer === 'O'
