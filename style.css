@@ -2,54 +2,60 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
+}
+
+body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-  }
-  
-  .game-container {
+    background-color: #f4f4f4;
+}
+
+.container {
     text-align: center;
-  }
-  
-  .board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 10px;
-    margin: 20px 0;
-  }
-  
-  .board div {
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-    border: 2px solid #ccc;
-    cursor: pointer;
-  }
-  
-  .score {
+}
+
+h1 {
+    font-size: 2rem;
     margin-bottom: 20px;
-    font-size: 1.2em;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 1em;
+}
+
+#game-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
     cursor: pointer;
+    user-select: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+#status {
     margin-top: 20px;
-  }
-  
-  #history {
-    margin-top: 20px;
-  }
-  
+    font-size: 1.2rem;
+}
