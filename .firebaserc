@@ -1,6 +1,7 @@
 {
   "projects": {
-    "default": "velha-1f5de"
+    "default": "velha-1f5de",
+    "de\t": "velha-1f5de"
   },
   "targets": {},
   "etags": {}
