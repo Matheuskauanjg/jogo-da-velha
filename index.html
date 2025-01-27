@@ -1,40 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jogo da Velha</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Velha</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <h1>Jogo da Velha</h1>
-        <div id="score">
-            <p>Jogador: <span id="player-score">0</span></p>
-            <p>Máquina: <span id="ai-score">0</span></p>
-        </div>
-        <div id="difficulty">
-            <button onclick="setDifficulty('easy')">Fácil</button>
-            <button onclick="setDifficulty('medium')">Média</button>
-            <button onclick="setDifficulty('hard')">Difícil</button>
-        </div>
-        <div class="board">
-            <div class="cell" onclick="makeMove(0)"></div>
-            <div class="cell" onclick="makeMove(1)"></div>
-            <div class="cell" onclick="makeMove(2)"></div>
-            <div class="cell" onclick="makeMove(3)"></div>
-            <div class="cell" onclick="makeMove(4)"></div>
-            <div class="cell" onclick="makeMove(5)"></div>
-            <div class="cell" onclick="makeMove(6)"></div>
-            <div class="cell" onclick="makeMove(7)"></div>
-            <div class="cell" onclick="makeMove(8)"></div>
-        </div>
-        <button id="next-game" onclick="startNewGame()">Próxima Partida</button>
+  <div class="game-container">
+    <h1>Jogo da Velha</h1>
+    <div class="board" id="board"></div>
+    <div class="score">
+      <span id="player-score">Jogador: 0</span>
+      <span id="ai-score">Máquina: 0</span>
     </div>
-    
-    <script src="script.js"></script>
-    <script src="facil.js"></script>
-    <script src="medio.js"></script>
-    <script src="dificil.js"></script>
+    <button id="new-game-btn">Próxima Partida</button>
+    <div id="history">
+      <!-- Histórico de partidas será exibido aqui -->
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script src="firebase.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
