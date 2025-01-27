@@ -24,7 +24,7 @@ function createBoard() {
 }
 
 function handleCellClick(index) {
-    if (gameOver || board[index] !== '') return;
+    if (gameOver || board[index] !== '' || currentPlayer === 'O') return; // O computador não pode jogar durante a vez do jogador
 
     board[index] = currentPlayer;
     renderBoard();
@@ -36,10 +36,8 @@ function handleCellClick(index) {
         setTimeout(() => alert('Empate!'), 100);
         gameOver = true;
     } else {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        if (currentPlayer === 'O') {
-            setTimeout(() => aiMove(), 500);  // A IA joga após 0.5 segundos
-        }
+        currentPlayer = 'O';
+        setTimeout(() => aiMove(), 500);  // A IA joga após 0.5 segundos
     }
 }
 
