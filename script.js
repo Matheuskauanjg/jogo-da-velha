@@ -10,6 +10,7 @@ let difficulty = 'easy';
 difficultySelect.addEventListener('change', () => {
     difficulty = difficultySelect.value;
     resetBoard();
+    loadAI(); // Atualiza a IA com a dificuldade selecionada
 });
 
 function createBoard() {
@@ -66,13 +67,13 @@ function aiMove() {
     let bestMove;
     switch (difficulty) {
         case 'easy':
-            bestMove = easyAi();
+            bestMove = easyAI();
             break;
         case 'medium':
-            bestMove = mediumAi();
+            bestMove = mediumAI();
             break;
         case 'hard':
-            bestMove = hardAi();
+            bestMove = hardAI();
             break;
     }
     board[bestMove] = 'O';
@@ -89,21 +90,11 @@ function aiMove() {
     }
 }
 
-function easyAi() {
-    const availableMoves = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
-    return availableMoves[Math.floor(Math.random() * availableMoves.length)];
-}
-
-function mediumAi() {
-    // Lógica básica de AI, pode priorizar bloquear ou atacar
-    const availableMoves = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
-    return availableMoves[0]; // Lógica simplificada
-}
-
-function hardAi() {
-    // Lógica mais avançada de AI (minimax ou outra técnica mais complexa)
-    const availableMoves = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
-    return availableMoves[0]; // Lógica simplificada
+function loadAI() {
+    // Adiciona os scripts de dificuldade
+    const script = document.createElement('script');
+    script.src = `${difficulty}.js`;
+    document.head.appendChild(script);
 }
 
 function resetBoard() {
