@@ -5,7 +5,7 @@ function hardAI() {
 function minimax(board, player, alpha, beta) {
     const opponent = player === 'O' ? 'X' : 'O';
     const availableMoves = board.map((cell, index) => cell === '' ? index : null).filter(index => index !== null);
-    
+
     if (checkWinner(board)) return { score: player === 'O' ? 10 : -10 };
     if (board.every(cell => cell !== '')) return { score: 0 };
 
